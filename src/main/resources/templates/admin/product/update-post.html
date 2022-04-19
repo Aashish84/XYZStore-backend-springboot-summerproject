@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:insert="admin/index::admin-head"></head>
+
+<body>
+	<div class="container-fluid">
+		<div class="row">
+			<div th:replace="admin/index::admin-header"></div>
+
+			<div class="col-10 overflow-auto" style="height: 100vh;"
+				th:if="${data}">
+				<h1 class="text-center">Update product</h1>
+				<a href="/admin/category" th:href="@{/admin/product}"
+					class="btn btn-primary w-25 mb-3 mt-3">back</a>
+
+
+				<form class="form-inline" th:action="@{'/admin/product/update-post/' + ${data.getId()}}"
+					method="post" enctype="multipart/form-data">
+
+					<div class="form-group">
+						<label for="1">Product Name</label> <input type="text"
+							class="form-control w-50 mt-3 mb-3" id="1"
+							placeholder="enter product name" name="name"
+							th:value="${data.getName()}">
+					</div>
+					<div class="form-group">
+						<label for="1">Product brand Name</label> <input type="text"
+							class="form-control w-50 mt-3 mb-3" id="1"
+							placeholder="enter product brand" name="brand"
+							th:value="${data.getBrand()}">
+					</div>
+					<div class="form-group">
+						<label for="2">discount</label> <input type="number"
+							class="form-control w-25 mt-3 mb-3" id="2"
+							placeholder="enter discuont amount" name="discount"
+							th:value="${data.getDiscount()}">
+					</div>
+					<div class="form-group">
+						<label for="3">price</label> <input type="number"
+							class="form-control w-25 mt-3 mb-3" id="3"
+							placeholder="enter price amount" name="price"
+							th:value="${data.getPrice()}">
+					</div>
+					<div class="form-group">
+						<label for="4">inventory</label> <input type="number"
+							class="form-control w-25 mt-3 mb-3" id="4"
+							placeholder="enter inventory amount"
+							th:value="${data.getInventory()}" name="inventory" />
+					</div>
+
+					<h5>status</h5>
+					<div class="form-check form-check-inline">
+						<input class="form-check-input" type="radio" id="inlineRadio1"
+							name="status" th:value="${true}"
+							th:attr=" checked = ${data.isStatus()}?'checked' : null " /> <label
+							class="form-check-label" for="inlineRadio1">true</label>
+					</div>
+					<div class="form-check form-check-inline">
+						<input class="form-check-input" type="radio" id="inlineRadio2"
+							name="status" th:value="${false}"
+							th:attr=" checked = ${data.isStatus()}? null :'checked' ">
+						<label class="form-check-label" for="inlineRadio2">false</label>
+					</div>
+
+					<h5 class="mt-3">category for product</h5>
+					<select class="form-select w-25"
+						aria-label="Default select example" name="category_id">
+						<option value="1" th:each="content : ${allActiveCategoryData}"
+							th:value="${content.getId()}" th:text="${content.getName()}"
+							th:selected="${content.getId()} eq ${data.getCategory().getId()}">One</option>
+					</select>
+
+					<div>
+						<label for="formFileLg" class="form-label mt-3">enter
+							image file</label> <input class="form-control w-25" id="formFileLg"
+							type="file" name="file">
+					</div>
+					<h6 class="form-label mt-3">existing image</h6>
+					<img th:src="@{'/admin/product/image-view/' + ${data.getImage()}}"
+						class="w-25" />
+
+					<button type="submit" class="btn btn-success mb-2 mt-2 d-block">Submit</button>
+
+				</form>
+
+			</div>
+
+		</div>
+	</div>
+</body>
+</html>

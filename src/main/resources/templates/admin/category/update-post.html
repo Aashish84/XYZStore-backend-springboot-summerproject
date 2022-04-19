@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head th:insert="admin/index::admin-head"></head>
+
+  <body>
+    <div class="container-fluid">
+      <div class="row">
+        <div th:replace="admin/index::admin-header"></div>
+
+        <div class="col-10 overflow-auto" style="height: 100vh">
+          <h1 class="text-center">Update Category</h1>
+          <a href="/admin/category/" th:href="@{/admin/category/all}" class="btn btn-primary w-25 mb-3 mt-3">
+          	back
+          </a>
+
+          <form
+            class="form-inline"
+            th:action="@{'/admin/category/update-post/' + ${category.getId()}}"
+            method="post"
+          >
+			          
+            <div class="form-group">
+              <label>Category id</label>
+              <input
+				class="form-control w-25 mt-3 mb-3"
+				type="text"
+				th:value="${category.getId()}"
+				name="id"
+				readonly
+			   />
+            </div>
+
+            <div class="form-group">
+              <label for="formGroupExampleInput">Category Name</label>
+              <input
+                type="text"
+                class="form-control w-50 mt-3 mb-3"
+                id="formGroupExampleInput"
+                placeholder="Example input"
+                name="name"
+                th:value="${category.getName()}"
+              />
+            </div>
+			
+			<h4>Status</h4>
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                id="inlineRadio1"
+                name="status"
+                th:value="${true}"
+                th:attr="checked = ${category.isStatus()}? 'checked' : null "
+              />
+              <label class="form-check-label" for="inlineRadio1">Active</label>
+            </div>
+            
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                id="inlineRadio2"
+                name="status"
+                th:value="${false}"
+                th:attr="checked = ${category.isStatus()}? null : 'checked'"
+              />
+              <label class="form-check-label" for="inlineRadio2">NotActive</label>
+            </div>
+
+            <button type="submit" class="btn btn-success mb-2 mt-2 d-block">
+              Submit
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

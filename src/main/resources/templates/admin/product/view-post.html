@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:insert="admin/index::admin-head"></head>
+
+<body>
+	<div class="container-fluid">
+		<div class="row">
+			<div th:replace="admin/index::admin-header"></div>
+
+
+			<div class="col-10 overflow-auto" style="height: 100vh;">
+
+				<h1 class="text-center">Product view here</h1>
+
+				<div class="d-flex align-items-center justify-content-between">
+					<a th:href="@{/admin/product/add-post}"
+						class="btn btn-primary w-25 mb-3 mt-3 ">add new</a>
+					<form class="form-inline" th:action="@{/admin/product}"
+						method="post">
+						<div class="input-group">
+							<div class="form-outline">
+								<input type="search" id="form1" class="form-control"
+									name="searchtxt" placeholder="serach product name.." />
+							</div>
+							<button type="submit" class="btn btn-primary">search</button>
+						</div>
+					</form>
+				</div>
+
+				<table class="table table-striped">
+					<thead>
+						<tr th:if="${allData}">
+							<th scope="col">SN.</th>
+							<th scope="col">product name</th>
+							<th scope="col">product brand</th>
+							<th scope="col">category</th>
+							<th scope="col">discount</th>
+							<th scope="col">price</th>
+							<th scope="col">status</th>
+							<th scope="col">inventory</th>
+							<th scope="col">image</th>
+							<th scope="col">action</th>
+						</tr>
+					</thead>
+					<tbody th:if="${allData}">
+						<tr th:each="data,stat : ${allData}">
+							<th scope="row" th:text="${stat.index + 1}">1</th>
+							<td th:text="${data.getName()}">Mark</td>
+							<td th:text="${data.getBrand()}">Mark</td>
+							<td th:text="${data.getCategory().getName()}">Otto</td>
+							<td th:text="${data.getDiscount()}">Otto</td>
+							<td th:text="${data.getPrice()}">Otto</td>
+							<td th:text="${data.isStatus()}?'active' : 'not active'">Otto</td>
+							<td th:text="${data.getInventory()}">Otto</td>
+							<td><a
+								th:href="@{ '/admin/product/image-view/' + ${data.getImage()}}"
+								target="_blank" th:text="${data.getImage()}"
+								class="btn btn-primary w-100"></a></td>
+							<td><a
+								th:href="@{'/admin/product/update-post/' + ${data.getId()}}"
+								class="btn btn-warning">update</a>
+								<form class="d-inline"
+									th:action="'/admin/product/delete-post/' + ${data.getId()}"
+									method="post">
+									<button class="btn btn-danger" type="submit"
+										onclick="javascript:return confirm('are you sure?');">delete</button>
+								</form></td>
+						</tr>
+					</tbody>
+				</table>
+
+			</div>
+
+
+		</div>
+	</div>
+</body>
+</html>

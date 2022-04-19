@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:insert="admin/index::admin-head"></head>
+
+<body>
+	<div class="container-fluid">
+		<div class="row">
+			<div th:replace="admin/index::admin-header"></div>
+
+
+			<div class="col-8 overflow-auto" style="height: 100vh;">
+
+				<h1 class="text-center">category view here</h1>
+
+				<div class="d-flex align-items-center justify-content-between">
+					<a href="/admin/category/add-post"
+						class="btn btn-primary w-25 mb-3 mt-3 ">add new</a>
+					<form class="form-inline" th:action="@{/admin/category}"
+						method="post">
+						<div class="input-group">
+							<div class="form-outline">
+								<input type="search" id="form1" class="form-control"
+									name="cname" placeholder="serach Category name.." />
+							</div>
+							<button type="submit" class="btn btn-primary">search</button>
+						</div>
+					</form>
+				</div>
+
+				<table class="table table-striped">
+					<thead>
+						<tr th:if="${allData}">
+							<th scope="col" th:text=" 'SN.' ">SN.</th>
+							<th scope="col" th:text=" 'CategoryName' ">Category name</th>
+							<th scope="col" th:text=" 'status' ">Status</th>
+							<th scope="col" th:text=" 'Created_at' ">Created_at</th>
+							<th scope="col" th:text=" 'Updated_at' ">Updated_at</th>
+							<th scope="col" th:text=" 'Action' ">Action</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="data,stat : ${allData}">
+							<th scope="row" th:text="${stat.index + 1}">1</th>
+							<td th:text="${data.getName()}">Mark</td>
+							<td th:text="${data.isStatus()}?'Active' : 'NotActive'">Otto</td>
+							<td th:text="${data.getCreatedAt()}">Otto</td>
+							<td th:text="${data.getUpdatedAt()}">Otto</td>
+							<td><a
+								th:href="@{'/admin/category/update-post/' + ${data.getId()}}"
+								class="btn btn-warning">update</a>
+								<form class="d-inline"
+									th:action="'/admin/category/delete-post/' + ${data.getId()}"
+									method="post">
+									<button class="btn btn-danger" type="submit"
+										onclick="javascript:return confirm('are you sure?');">delete</button>
+								</form></td>
+						</tr>
+					</tbody>
+				</table>
+
+			</div>
+
+			<div class="col-2">
+				<form method="get">
+					<div class="row overflow-auto" style="height: 100vh;">
+						<div class="mb-3">
+							<button style="width: 100%" type="submit"
+								formaction="/admin/category/all"
+								th:attr=" class =${#strings.equals(filter,'all')}?'btn btn-success' : 'btn btn-dark'">
+								all</button>
+						</div>
+						<div class="mb-3">
+							<button style="width: 100%" type="submit"
+								formaction="/admin/category/active"
+								th:attr=" class =${#strings.equals(filter,'active')}?'btn btn-success' : 'btn btn-dark'">
+								active status only</button>
+						</div>
+						<div class="mb-3">
+							<button style="width: 100%" type="submit"
+								formaction="/admin/category/notactive"
+								th:attr=" class =${#strings.equals(filter,'notactive')}?'btn btn-success' : 'btn btn-dark'">
+								notactive status only</button>
+						</div>
+						<div class="mb-3">
+							<button style="width: 100%" type="submit"
+								formaction="/admin/category/create_asc"
+								th:attr=" class =${#strings.equals(filter,'create_asc')}?'btn btn-success' : 'btn btn-dark'">
+								create_asc</button>
+						</div>
+						<div class="mb-3">
+							<button style="width: 100%" type="submit"
+								formaction="/admin/category/create_desc"
+								th:attr=" class =${#strings.equals(filter,'create_desc')}?'btn btn-success' : 'btn btn-dark'">
+								create_desc</button>
+						</div>
+						<div class="mb-3">
+							<button style="width: 100%" type="submit"
+								formaction="/admin/category/active_create_desc"
+								th:attr=" class =${#strings.equals(filter,'active_create_desc')}?'btn btn-success' : 'btn btn-dark'">
+								active_create_desc</button>
+						</div>
+						<div class="mb-3">
+							<button style="width: 100%" type="submit"
+								formaction="/admin/category/notactive_create_desc"
+								th:attr=" class =${#strings.equals(filter,'notactive_create_desc')}?'btn btn-success' : 'btn btn-dark'">
+								notactive_create_desc</button>
+						</div>
+						<div class="mb-3">
+							<button style="width: 100%" type="submit"
+								formaction="/admin/category/active_create_asc"
+								th:attr=" class =${#strings.equals(filter,'active_create_asc')}?'btn btn-success' : 'btn btn-dark'">
+								active_create_asc</button>
+						</div>
+						<div class="mb-3">
+							<button style="width: 100%" type="submit"
+								formaction="/admin/category/notactive_create_asc"
+								th:attr=" class =${#strings.equals(filter,'notactive_create_asc')}?'btn btn-success' : 'btn btn-dark'">
+								notactive_create_asc</button>
+						</div>
+						<div class="mb-3">
+							<button style="width: 100%" type="submit"
+								formaction="/admin/category/update_desc"
+								th:attr=" class =${#strings.equals(filter,'update_desc')}?'btn btn-success' : 'btn btn-dark'">
+								update_desc</button>
+						</div>
+						<div class="mb-3">
+							<button style="width: 100%" type="submit"
+								formaction="/admin/category/update_asc"
+								th:attr=" class =${#strings.equals(filter,'update_asc')}?'btn btn-success' : 'btn btn-dark'">
+								update_asc</button>
+						</div>
+						<div class="mb-3">
+							<button style="width: 100%" type="submit"
+								formaction="/admin/category/active_update_desc"
+								th:attr=" class =${#strings.equals(filter,'active_update_desc')}?'btn btn-success' : 'btn btn-dark'">
+								active_update_desc</button>
+						</div>
+						<div class="mb-3">
+							<button style="width: 100%" type="submit"
+								formaction="/admin/category/notactive_update_desc"
+								th:attr=" class =${#strings.equals(filter,'notactive_update_desc')}?'btn btn-success' : 'btn btn-dark'">
+								notactive_update_desc</button>
+						</div>
+						<div class="mb-3">
+							<button style="width: 100%" type="submit"
+								formaction="/admin/category/active_update_asc"
+								th:attr=" class =${#strings.equals(filter,'active_update_asc')}?'btn btn-success' : 'btn btn-dark'">
+								active_update_asc</button>
+						</div>
+						<div class="mb-3">
+							<button style="width: 100%" type="submit"
+								formaction="/admin/category/notactive_update_asc"
+								th:attr=" class =${#strings.equals(filter,'notactive_update_asc')}?'btn btn-success' : 'btn btn-dark'">
+								notactive_update_asc</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
