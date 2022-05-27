@@ -16,7 +16,7 @@ import com.asish.ecom.helper.pojo.TopBrand;
 import com.asish.ecom.service.AnalysisService;
 
 @Controller
-@RequestMapping("/api/analysis")
+@RequestMapping("/admin/analysis")
 public class AnalysisController {
 
 	@Autowired

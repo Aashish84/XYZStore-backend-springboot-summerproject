@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:insert="admin/index::admin-head"></head>
+
+<body>
+	<div class="container-fluid">
+		<div class="row">
+			<div th:replace="admin/index::admin-header"></div>
+
+
+			<div class="col-10 overflow-auto" style="height: 100vh;">
+			
+				<table class="table table-striped" th:if="${allData}">
+					<thead>
+						<tr>
+							<th scope="col">SN.</th>
+							<th scope="col">Name</th>
+							<th scope="col">Action</th>
+						</tr>
+					</thead>
+					<tbody th:if="${allData}">
+						<tr th:each="data,stat : ${allData}">
+							<th scope="row" th:text="${stat.index + 1}">1</th>
+							<td th:text="${data.getName()}">Mark</td>
+							<td><a th:href="@{'/admin/pricetracker/' + ${data.getId()}}"> view detail</a></td>
+						</tr>
+					</tbody>
+				</table>
+			
+			</div>
+			
+		</div>
+	</div>
+</body>
+
+</html>

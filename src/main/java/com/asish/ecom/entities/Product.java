@@ -1,10 +1,14 @@
 package com.asish.ecom.entities;
 
+import java.sql.Timestamp;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+
+import org.hibernate.annotations.UpdateTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -32,6 +36,9 @@ public class Product {
 	private int inventory;
 
 	private String brand;
+
+	@UpdateTimestamp
+	private Timestamp updatedAt;
 
 	public int getId() {
 		return id;
@@ -103,5 +110,13 @@ public class Product {
 
 	public void setBrand(String brand) {
 		this.brand = brand;
+	}
+
+	public Timestamp getUpdatedAt() {
+		return updatedAt;
+	}
+
+	public void setUpdatedAt(Timestamp updatedAt) {
+		this.updatedAt = updatedAt;
 	}
 }

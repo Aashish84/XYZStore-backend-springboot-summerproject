@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:insert="admin/index::admin-head"></head>
+
+<body>
+	<script th:inline="javascript" th:if="${allData}">
+		google.charts.load('current', {'packages':['corechart']});
+	    google.charts.setOnLoadCallback(drawLineChart);
+	    function drawLineChart(){
+			var bedata = (/*[[${allData}]]*/)
+			var chartarr=[ ["timestamp" , "price" ] ];
+			for(let i=0 ; i<bedata.length ; i++){
+				chartarr.push([bedata[i].time, bedata[i].price]);
+			}
+			
+			var data = google.visualization.arrayToDataTable(chartarr);
+			
+			var options = {
+				title: 'prices',
+			    curveType: 'function',
+			    legend: { position: 'bottom' }
+			};
+
+			var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+
+			chart.draw(data, options);
+	    }
+	    
+	</script>
+	
+	<div class="container-fluid">
+		<div class="row">
+			<div th:replace="admin/index::admin-header"></div>
+
+
+			<div class="col-10 overflow-auto" style="height: 100vh;">
+				<h1 th:if="${greatPrice}" th:text="${'product :' + greatPrice.getProduct().getName()}"></h1>
+				<h4 th:if="${greatPrice}" th:text="${'Current price : Rs ' + greatPrice.getProduct().getPrice() +' at : ' + greatPrice.getProduct().getUpdatedAt()}"></h4>
+				<h4 th:if="${greatPrice}" th:text="${'greatest  price till now : Rs ' + greatPrice.getPrice() +' at : ' + greatPrice.getTime()}"></h4>
+				<h4 th:if="${greatPrice}" th:text="${'lowest  price till now : Rs ' + lowPrice.getPrice() +' at : ' + lowPrice.getTime()}"></h4>
+				
+				 <div th:if="${allData}" id="curve_chart" style="width: 900px; height: 500px"></div>
+				 
+				<table class="table table-striped" th:if="${allData}">
+					<thead>
+						<tr>
+							<th scope="col">SN.</th>
+							<th scope="col">price</th>
+							<th scope="col">updatedAt</th>
+						</tr>
+					</thead>
+					<tbody th:if="${allData}">
+						<tr th:each="data,stat : ${allData}">
+							<th scope="row" th:text="${stat.index + 1}">1</th>
+							<td th:text="${data.getPrice()}">Mark</td>
+							<td th:text="${data.getTime()}">Otto</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

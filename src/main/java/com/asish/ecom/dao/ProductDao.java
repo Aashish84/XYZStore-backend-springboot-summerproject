@@ -16,6 +16,9 @@ public interface ProductDao extends CrudRepository<Product, Integer> {
 	@Query(value = "select * from Product p where p.image = ?1 Limit 1", nativeQuery = true)
 	public Optional<Product> findByFirstImageName(String imageName);
 
+	@Query(value = "select id,name from Product", nativeQuery = true)
+	public List<Object[]> findOnlyName();
+
 	@Query(value = "select DISTINCT * from Product where status=true Limit 5", nativeQuery = true)
 	public Iterable<Product> findMultipleWithLimit();
 

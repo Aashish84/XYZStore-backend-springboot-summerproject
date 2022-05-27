@@ -51,4 +51,9 @@ public class TopProduct implements Comparable<TopProduct> {
 		return -1;
 	}
 
+	@Override
+	public String toString() {
+		return "TopProduct [productId=" + productId + ", productName=" + productName + ", productOrderCount="
+				+ productOrderCount + ", productQuantityCount=" + productQuantityCount + "]";
+	}
 }

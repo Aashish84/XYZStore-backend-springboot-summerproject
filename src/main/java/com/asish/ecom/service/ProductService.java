@@ -8,8 +8,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.asish.ecom.dao.CategoryDao;
+import com.asish.ecom.dao.PriceTrackerDao;
 import com.asish.ecom.dao.ProductDao;
 import com.asish.ecom.entities.Category;
+import com.asish.ecom.entities.PriceTracker;
 import com.asish.ecom.entities.Product;
 import com.asish.ecom.helper.ProductImageUpload;
 
@@ -24,6 +26,9 @@ public class ProductService {
 
 	@Autowired
 	private ProductImageUpload productImageUpload;
+
+	@Autowired
+	private PriceTrackerDao priceTrackerDao;
 
 	// get
 	public List<Product> getAllProduct() throws Exception {
@@ -102,7 +107,13 @@ public class ProductService {
 			throw new Exception("file not uploaded ");
 		}
 
-		return productDao.save(p);
+		Product save = productDao.save(p);
+		PriceTracker pt = new PriceTracker();
+		pt.setPrice(save.getPrice());
+		pt.setProduct(save);
+		pt.setTime(save.getUpdatedAt());
+		priceTrackerDao.save(pt);
+		return save;
 	}
 
 	// update
@@ -125,7 +136,13 @@ public class ProductService {
 			}
 		}
 
-		return productDao.save(p);
+		Product save = productDao.save(p);
+		PriceTracker pt = new PriceTracker();
+		pt.setProduct(save);
+		pt.setPrice(save.getPrice());
+		pt.setTime(save.getUpdatedAt());
+		priceTrackerDao.save(pt);
+		return save;
 	}
 
 	// delete

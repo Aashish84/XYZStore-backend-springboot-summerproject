@@ -7,16 +7,41 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.asish.ecom.dao.CategoryDao;
+import com.asish.ecom.dao.ProductDao;
 import com.asish.ecom.entities.Category;
+import com.asish.ecom.entities.Product;
+import com.asish.ecom.helper.pojo.TopProduct;
 
 @Service
 public class CategoryService {
 	@Autowired
 	private CategoryDao categoryDao;
 
+	@Autowired
+	private AnalysisService analysisService;
+
+	@Autowired
+	private ProductDao productDao;
+
 	// get from database
 	public List<Category> getAllCategory() {
-		Iterable<Category> findAll = categoryDao.findAll();
+		List<Category> findAll = (List<Category>) categoryDao.findAll();
+
+		List<TopProduct> topProductByQuantity = analysisService.topProductByQuantity();
+		for (int j = 0; j < findAll.size(); j++) {
+			for (int i = 0; i < topProductByQuantity.size(); i++) {
+				TopProduct tmp = topProductByQuantity.get(i);
+				Optional<Product> findById = productDao.findById(tmp.getProductId());
+				Product product = findById.get();
+
+				if (product.getCategory().getId() == findAll.get(i).getId()) {
+					findAll.get(i).setImage(product.getImage());
+					findAll.get(i).setTopProductName(product.getName());
+					break;
+				}
+			}
+		}
+
 		return (List<Category>) findAll;
 	}
 
