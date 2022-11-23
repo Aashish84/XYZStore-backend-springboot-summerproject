@@ -29,13 +29,13 @@ public class OrderController {
 	public String viewOrderCustomer(Model m) {
 		List<Customer> allNewCustomer = customerService.getAllNewCustomer();
 		m.addAttribute("allData", allNewCustomer);
-		return "/admin/order/view-post";
+		return "admin/order/view-post";
 	}
 
 	@RequestMapping(path = "/{customerId}", method = RequestMethod.GET)
 	public String viewOrderById(Model m, @PathVariable("customerId") int customerId) {
 		List<OrderedItem> orderedItemByCustomerId = orderedItemService.getOrderedItemByCustomerId(customerId);
 		m.addAttribute("allData", orderedItemByCustomerId);
-		return "/admin/order/view-order";
+		return "admin/order/view-order";
 	}
 }

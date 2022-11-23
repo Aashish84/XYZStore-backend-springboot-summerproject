@@ -12,6 +12,6 @@ public class DashboardController {
 	@RequestMapping(method = RequestMethod.GET)
 	public String viewDashBoard(Model m) {
 		m.addAttribute("olo", "hello");
-		return "/admin/index";
+		return "admin/index";
 	}
 }

@@ -69,7 +69,7 @@ public class CategoryController {
 		List<Category> tmp = new ArrayList<>();
 		tmp.add(updateCategory);
 		m.addAttribute("allData", tmp);
-		return "/admin/category/view-post";
+		return "admin/category/view-post";
 	}
 
 	// delete-post

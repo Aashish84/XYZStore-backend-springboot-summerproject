@@ -36,7 +36,7 @@ public class PriceTrackerController {
 			lProducts.add(product);
 		}
 		m.addAttribute("allData", lProducts);
-		return "/admin/priceTracker/view-post";
+		return "admin/priceTracker/view-post";
 	}
 
 	@RequestMapping(path = "/{id}", method = RequestMethod.GET)
@@ -61,6 +61,6 @@ public class PriceTrackerController {
 		m.addAttribute("greatPrice", great);
 		m.addAttribute("lowPrice", low);
 		m.addAttribute("allData", findByProduct);
-		return "/admin/priceTracker/view-single";
+		return "admin/priceTracker/view-single";
 	}
 }

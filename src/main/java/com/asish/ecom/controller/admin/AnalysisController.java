@@ -31,13 +31,13 @@ public class AnalysisController {
 	@RequestMapping(path = "/topproductorder", method = RequestMethod.GET)
 	public String getProductByOrderNumber(Model m) {
 		m.addAttribute("topProductOrder", analysisService.topProductByOrder());
-		return "/admin/index";
+		return "admin/index";
 	}
 
 	@RequestMapping(path = "/topproductquantity", method = RequestMethod.GET)
 	public String getProductByQuantityNumber(Model m) {
 		m.addAttribute("topProductQuantity", analysisService.topProductByQuantity());
-		return "/admin/index";
+		return "admin/index";
 	}
 
 	@RequestMapping(path = "/topbrandproduct", method = RequestMethod.GET)
@@ -73,7 +73,7 @@ public class AnalysisController {
 		Collections.sort(tb);
 		m.addAttribute("topProductQuantityBrand", tb);
 
-		return "/admin/index";
+		return "admin/index";
 	}
 
 }

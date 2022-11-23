@@ -14,7 +14,7 @@ import org.springframework.web.servlet.view.RedirectView;
 public class LoginController {
 	@RequestMapping(method = RequestMethod.GET)
 	public String logIn() {
-		return "/admin/login";
+		return "admin/login";
 	}
 
 	@RequestMapping(method = RequestMethod.POST)

@@ -40,7 +40,7 @@ public class ProductController {
 	public String displayView(Model m) throws Exception {
 		List<Product> productWithLimit = productService.getProductWithLimit();
 		m.addAttribute("allData", productWithLimit);
-		return "/admin/product/view-post";
+		return "admin/product/view-post";
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
@@ -49,7 +49,7 @@ public class ProductController {
 		List<Product> allProduct = productService.getProductByName(searchTxt.trim());
 		m.addAttribute("searchKey", searchTxt);
 		m.addAttribute("allData", allProduct);
-		return "/admin/product/view-post";
+		return "admin/product/view-post";
 	}
 
 	// view-image
@@ -69,7 +69,7 @@ public class ProductController {
 	public String addView(Model m) {
 		List<Category> categoryWithFilter = categoryService.getCategoryWithFilter("active");
 		m.addAttribute("allActiveCategoryData", categoryWithFilter);
-		return "/admin/product/add-post";
+		return "admin/product/add-post";
 	}
 
 	@RequestMapping(path = "/add-post", method = RequestMethod.POST)
@@ -80,7 +80,7 @@ public class ProductController {
 		List<Product> tmp = new ArrayList<>();
 		tmp.add(addProduct);
 		m.addAttribute("allData", tmp);
-		return "/admin/product/view-post";
+		return "admin/product/view-post";
 	}
 
 	// update-post
@@ -92,7 +92,7 @@ public class ProductController {
 
 		Product product = productService.getProduct(id);
 		m.addAttribute("data", product);
-		return "/admin/product/update-post";
+		return "admin/product/update-post";
 	}
 
 	@RequestMapping(path = "/update-post/{id}", method = RequestMethod.POST)
@@ -104,7 +104,7 @@ public class ProductController {
 		List<Product> tmp = new ArrayList<>();
 		tmp.add(updateProduct);
 		m.addAttribute("allData", tmp);
-		return "/admin/product/view-post";
+		return "admin/product/view-post";
 	}
 
 	// delete-post
